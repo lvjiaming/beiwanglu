@@ -1,13 +1,32 @@
 {
+  "appKey": "",
+  "appSecret": "",
+  "encryptJs": true,
   "excludeScenes": [],
+  "includeAnySDK": false,
+  "includeSDKBox": false,
+  "inlineSpriteFrames": true,
+  "inlineSpriteFrames_native": true,
+  "jailbreakPlatform": false,
+  "md5Cache": false,
+  "mergeStartScene": false,
+  "oauthLoginServer": "",
+  "optimizeHotUpdate": false,
   "orientation": {
-    "landscapeLeft": true,
-    "landscapeRight": true,
+    "landscapeLeft": false,
+    "landscapeRight": false,
     "portrait": false,
-    "upsideDown": false
+    "upsideDown": true
   },
   "packageName": "org.cocos2d.helloworld",
-  "startScene": "2d2f792f-a40c-49bb-a189-ed176a246e49",
+  "privateKey": "",
+  "renderMode": "0",
+  "startScene": "32bcfedd-2327-4854-a7b3-b5fabdffc773",
   "title": "hello_world",
-  "webOrientation": "auto"
+  "webOrientation": "auto",
+  "wechatgame": {
+    "appid": "",
+    "orientation": "portrait"
+  },
+  "xxteaKey": "72baacb4-10c4-4f"
 }

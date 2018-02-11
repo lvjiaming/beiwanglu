@@ -8,6 +8,14 @@ const ViewConfig = {
 ViewConfig.addConfig = () => {
 
 };
+ViewConfig.itemKey = [
+    null,
+    "name",
+    "phoneNum",
+    "carNum",
+    "other"
+];
+ViewConfig.dataKey = "data1";
 
 exports = ViewConfig;
 cc.viewConfig = ViewConfig;

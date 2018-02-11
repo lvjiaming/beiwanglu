@@ -19,10 +19,19 @@ const DataControl = cc.Class({
         cc.sys.localStorage.setItem("listData", JSON.stringify(this._data));
     },
     /**
+     *  初始化数据
+     */
+    initData() {
+        this._data = JSON.parse(cc.sys.localStorage.getItem("listData"));
+        if (!this._data) {
+            this._data = {};
+        }
+    },
+    /**
      *  读取数据
      */
+
     getData() {
-        this._data = JSON.parse(cc.sys.localStorage.getItem("listData"));
         return this._data;
     },
     /**
