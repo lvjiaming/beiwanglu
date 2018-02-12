@@ -12,11 +12,25 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-
+        searchEditBox: {
+            default: null,
+            type: cc.Node,
+            tooltip: "搜索输入框",
+        },
+        preBtn: {
+            default: null,
+            type: cc.Button,
+            tooltip: "当前的按钮",
+        },
+        preItem: "name",
     },
 
     onLoad() {
-        cc.dataControl.initData()
+        cc.dataControl.initData();
+        cc.commonTip.init(this.node);
+        if (this.preBtn) {
+            this.preBtn.interactable = false;
+        }
     },
 
     start () {
@@ -50,5 +64,47 @@ cc.Class({
                 this.node.addChild(resultUI);
             }
         });
+    },
+    /**
+     *  选择分类
+     * @param event
+     * @param custom
+     */
+    onClickSelect(event, custom) {
+        if (this.preBtn) {
+            this.preBtn.interactable = true;
+        }
+        this.preBtn = event.target.getComponent(cc.Button);
+        this.preBtn.interactable = false;
+        this.preItem = cc.viewConfig.itemKey[parseInt(custom)];
+        cc.log(`选择的搜索条件为${this.preItem}`);
+    },
+    /**
+     *  确认搜索
+     */
+    onClickFixSearch() {
+        if (this.searchEditBox) {
+            if (this.searchEditBox.getComponent(cc.EditBox).string) {
+                cc.loader.loadRes("Prefabs/seachResult", (err, prefab) => {
+                    if (err) {
+                        cc.error(err);
+                    } else {
+                        const resultUI = cc.instantiate(prefab);
+
+                        let newData = {};
+                        newData[cc.viewConfig.dataKey] = [];
+                        cc.dataControl.getData()[cc.viewConfig.dataKey].forEach((item) => {
+                            if (item[this.preItem].indexOf(this.searchEditBox.getComponent(cc.EditBox).string) != -1) {
+                                newData[cc.viewConfig.dataKey].push(item);
+                            }
+                        });
+                        resultUI.data = newData;
+                        this.node.addChild(resultUI);
+                    }
+                });
+            } else {
+                cc.commonTip.show("请输入搜索条件！");
+            }
+        }
     },
 });

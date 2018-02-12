@@ -72,7 +72,7 @@ cc.Class({
     /**
      *  删除此条信息
      */
-    onClickDes() {
+    onClickDes(event) {
         const data = cc.dataControl.getData();
         data[cc.viewConfig.dataKey].splice(this.node.dataIndex, 1);
         cc.dataControl.setData();
@@ -80,6 +80,7 @@ cc.Class({
         if (seachUI) {
             seachUI.getComponent("SearchUi").initResult(data);
         }
+        cc.commonTip.show("删除信息成功！");
         this.onClickReturn();
     },
     onClickReturn() {
