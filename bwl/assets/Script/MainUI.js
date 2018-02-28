@@ -83,6 +83,21 @@ cc.Class({
      *  确认搜索
      */
     onClickFixSearch() {
+        if (!cc.dataControl.getData()[cc.viewConfig.dataKey]) {
+            cc.commonTip.show("未录入数据！");
+            return;
+        }
+        let newData = {};
+        newData[cc.viewConfig.dataKey] = [];
+        cc.dataControl.getData()[cc.viewConfig.dataKey].forEach((item) => {
+            if (item[this.preItem].indexOf(this.searchEditBox.getComponent(cc.EditBox).string) != -1) {
+                newData[cc.viewConfig.dataKey].push(item);
+            }
+        });
+        if (newData[cc.viewConfig.dataKey].length <= 0) {
+            cc.commonTip.show("搜索结果为空！");
+            return;
+        }
         if (this.searchEditBox) {
             if (this.searchEditBox.getComponent(cc.EditBox).string) {
                 cc.loader.loadRes("Prefabs/seachResult", (err, prefab) => {
@@ -90,14 +105,6 @@ cc.Class({
                         cc.error(err);
                     } else {
                         const resultUI = cc.instantiate(prefab);
-
-                        let newData = {};
-                        newData[cc.viewConfig.dataKey] = [];
-                        cc.dataControl.getData()[cc.viewConfig.dataKey].forEach((item) => {
-                            if (item[this.preItem].indexOf(this.searchEditBox.getComponent(cc.EditBox).string) != -1) {
-                                newData[cc.viewConfig.dataKey].push(item);
-                            }
-                        });
                         resultUI.data = newData;
                         this.node.addChild(resultUI);
                     }
